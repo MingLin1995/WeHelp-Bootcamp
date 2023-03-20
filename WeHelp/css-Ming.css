@@ -1,3 +1,9 @@
+.background{
+    background-image: url("https://scontent.ftpe11-2.fna.fbcdn.net/v/t1.6435-9/53030593_1930539407043466_6454563456149356544_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=e3f864&_nc_ohc=7RkU_vwkMokAX9YVtra&_nc_ht=scontent.ftpe11-2.fna&oh=00_AfC7iIsdg2f5AyACzTWUyD1xMcDfDWmsMrVyGwVCDUTAcg&oe=643E6733");
+    background-size:auto;
+    background-position:center
+}
+
 .application{
     height:65px;
     background-color:#cccccca7;
@@ -9,38 +15,28 @@
 
 .text{
     font-size:45px;
-    font-weight:bold; /*粗體*/
-    text-align:center /*發現還是有點沒對齊，找出問題是項目沒有置中*/
-
+    font-weight:bold; 
+    text-align:center 
 }
 
-.background{
-    background-image: url("https://scontent.ftpe11-2.fna.fbcdn.net/v/t1.6435-9/53030593_1930539407043466_6454563456149356544_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=e3f864&_nc_ohc=7RkU_vwkMokAX9YVtra&_nc_ht=scontent.ftpe11-2.fna&oh=00_AfC7iIsdg2f5AyACzTWUyD1xMcDfDWmsMrVyGwVCDUTAcg&oe=643E6733");
-    background-size:auto;
-    background-position:center
+.fram{
+    margin-bottom:30px
 }
 
-.fram1{
-    
-}
-
-.left1{
+.question{
     background-color:#cccccca7;
-    flex:none;/* 固定配置(不管螢幕大小) */
-    width:100%; /* 參考寬度，可以用比例，也可以固定大小 */
     font-size:28px;
     font-weight:bold;
     text-align:center
 }
 
-.right1{
-    background-color:#ffffff;
-    flex:none;
+.answer{
+    background-color:#ffffffdf;
     width:100%
 }
 
 /*設計給平板使用時顯示的畫面*/
-@media (max-width:1280px){ /*桌機最小是1280px，所以低於1280以內套用以下設定*/
+@media (max-width:1280px){ /*桌機最小大概是1280px，所以低於1280以內套用以下設定*/
     .application{
         height:35px;
         background-color:#cccccca7;
@@ -52,34 +48,29 @@
     
     .text{
         font-size:24px;
-        font-weight:bold; /*粗體*/
-        text-align:center /*發現還是有點沒對齊，找出問題是項目沒有置中*/
-    
+        font-weight:bold; 
+        text-align:center 
     }
 
-    .left1{
+    .question{
         background-color:#cccccca7;
-        flex:none;/* 固定配置(不管螢幕大小) */
-        width:100%; /* 參考寬度，可以用比例，也可以固定大小 */
         font-size:18px;
         font-weight:bold;
         text-align:center
     }
     
-    .right1{
-        background-color:#ffffff;
-        flex:none;
+    .answer{
+        background-color:#ffffffdf;
         width:100%
     }
-
-    
 } 
 
 /*設計給手機使用時顯示的畫面*/
 @media (max-width:500px){ /*平板最小是500px，所以低於500以內套用以下設定*/
     /*最小的手機畫面大概360px*/
+
     .application{
-        height:24px;
+        height:25px;
         background-color:#cccccca7;
         margin-top:30px ;
         margin-bottom:30px ;
@@ -88,26 +79,20 @@
     }
     
     .text{
-        font-size:18px;
-        font-weight:bold; /*粗體*/
-        text-align:center /*發現還是有點沒對齊，找出問題是項目沒有置中*/
-    
-
+        font-size:20px;
+        font-weight:bold; 
+        text-align:center 
     } 
 
-    .left1{
+    .question{
         background-color:#cccccca7;
-        flex:none;/* 固定配置(不管螢幕大小) */
-        width:100%; /* 參考寬度，可以用比例，也可以固定大小 */
         font-size:14px;
         font-weight:bold;
         text-align:center
     }
     
-    .right1{
-        background-color:#ffffff;
-        flex:none;
+    .answer{
+        background-color:#ffffffdf;
         width:100%
     }
-
-
+    
