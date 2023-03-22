@@ -1,12 +1,13 @@
 .background{
     background-image: url("https://scontent.ftpe11-2.fna.fbcdn.net/v/t1.6435-9/53030593_1930539407043466_6454563456149356544_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=e3f864&_nc_ohc=7RkU_vwkMokAX9YVtra&_nc_ht=scontent.ftpe11-2.fna&oh=00_AfC7iIsdg2f5AyACzTWUyD1xMcDfDWmsMrVyGwVCDUTAcg&oe=643E6733");
     background-size:auto;
-    background-position:center
+    background-position:center;
+    font-family: Microsoft JhengHei;
 }
 
 .application{
     height:65px;
-    background-color:#cccccca7;
+    background-color:#ccccccd7;
     margin-top:30px ;
     margin-bottom:30px ;
     margin-right:30%;
@@ -20,26 +21,29 @@
 }
 
 .fram{
-    margin-bottom:30px
+    margin-bottom:30px;
+    margin-right:10%;
+    margin-left:10%;
 }
 
 .question{
-    background-color:#cccccca7;
+    background-color:#ccccccd7;
     font-size:28px;
     font-weight:bold;
     text-align:center
 }
 
 .answer{
-    background-color:#ffffffdf;
-    width:100%
+    background-color:#fffffff0;
+    font-size:20px;
+    width:100%;
 }
 
 /*設計給平板使用時顯示的畫面*/
 @media (max-width:1280px){ /*桌機最小大概是1280px，所以低於1280以內套用以下設定*/
     .application{
         height:35px;
-        background-color:#cccccca7;
+        background-color:#ccccccd7;
         margin-top:30px ;
         margin-bottom:30px ;
         margin-right:25%;
@@ -52,16 +56,23 @@
         text-align:center 
     }
 
+    .fram{
+        margin-bottom:30px;
+        margin-right:0%;
+        margin-left:0%;        
+    }
+
     .question{
-        background-color:#cccccca7;
+        background-color:#ccccccd7;
         font-size:18px;
         font-weight:bold;
         text-align:center
     }
     
     .answer{
-        background-color:#ffffffdf;
-        width:100%
+        background-color:#fffffff0;
+        width:100%;
+
     }
 } 
 
@@ -71,7 +82,7 @@
 
     .application{
         height:25px;
-        background-color:#cccccca7;
+        background-color:#ccccccd7;
         margin-top:30px ;
         margin-bottom:30px ;
         margin-right:10%;
@@ -84,15 +95,21 @@
         text-align:center 
     } 
 
+    .fram{
+        margin-bottom:30px;
+        margin-right:0%;
+        margin-left:0%;        
+    }
+
     .question{
-        background-color:#cccccca7;
+        background-color:#ccccccd7;
         font-size:14px;
         font-weight:bold;
         text-align:center
     }
     
     .answer{
-        background-color:#ffffffdf;
+        background-color:#fffffff0;
         width:100%
     }
     
