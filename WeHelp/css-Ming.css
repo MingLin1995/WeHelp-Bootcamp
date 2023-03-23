@@ -41,6 +41,7 @@
 
 /*設計給平板使用時顯示的畫面*/
 @media (max-width:1280px){ /*桌機最小大概是1280px，所以低於1280以內套用以下設定*/
+    
     .application{
         height:35px;
         background-color:#ccccccd7;
@@ -112,4 +113,4 @@
         background-color:#fffffff0;
         width:100%
     }
-    
+}
