@@ -33,11 +33,41 @@
     text-align:center
 }
 
-.answer{
+.answer1{
     background-color:#fffffff0;
     font-size:20px;
     width:100%;
+    text-indent: 2em;
+    padding-top:20px;
+    padding-bottom:20px
 }
+
+.answer2{
+    background-color:#fffffff0;
+    font-size:20px;
+    width:100%;
+    text-indent: 2em;
+    padding-bottom:20px
+}
+
+.answer3{
+    background-color:#fffffff0;
+    font-size:20px;
+    width:100%;
+    text-indent: 2em;;
+    padding-top:20px;
+    padding-bottom:20px
+}
+
+.answer4{
+    background-color:#fffffff0;
+    font-size:20px;
+    width:100%;
+    text-indent: 2em;;
+    list-style-type:decimal;
+    padding-bottom:20px
+}
+
 
 /*設計給平板使用時顯示的畫面*/
 @media (max-width:1280px){ /*桌機最小大概是1280px，所以低於1280以內套用以下設定*/
@@ -73,7 +103,6 @@
     .answer{
         background-color:#fffffff0;
         width:100%;
-
     }
 } 
 
