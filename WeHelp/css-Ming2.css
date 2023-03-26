@@ -86,7 +86,7 @@
     /*border: 1px solid red;*/
     height: 40px;
     padding: 10px; /*向內推，讓自不會太靠近邊框*/
-    width:60%;
+    width:65%;
     display: flex;
     align-items: center; 
     justify-content: center; 
@@ -117,7 +117,7 @@
     /*border: 1px solid red;*/
     height: 40px;
     padding: 10px; /*向內推，讓自不會太靠近邊框*/
-    width:80%;
+    width:90%;
     display: flex;
     align-items: center; 
     justify-content: center; 
