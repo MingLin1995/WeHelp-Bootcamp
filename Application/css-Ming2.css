@@ -1,0 +1,132 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  /*寬高設定作用在邊框；預設為content，寬高設定作用在內容*/ /*參考教學 https://www.youtube.com/watch?v=O8EOgg-hhvI&ab_channel=CSScoke*/   
+}
+
+.background{
+    background-image: url("https://scontent.ftpe11-2.fna.fbcdn.net/v/t1.6435-9/53030593_1930539407043466_6454563456149356544_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=e3f864&_nc_ohc=7RkU_vwkMokAX9YVtra&_nc_ht=scontent.ftpe11-2.fna&oh=00_AfC7iIsdg2f5AyACzTWUyD1xMcDfDWmsMrVyGwVCDUTAcg&oe=643E6733");
+    background-size:auto;
+    background-position:center;
+    font-family: Microsoft JhengHei;
+}
+
+
+.container {
+    width: 100%;
+    /*border: 5px solid rgb(251, 255, 0);*/ /*調整框架的時候最好都把邊框先畫出來*/
+    display: flex;                 
+    justify-content: center; /*水平置中*/
+    flex-wrap: wrap;         /*垂直置中*/
+}
+
+.title {
+    /*border: 1px solid red;*/
+    height: 40px;
+    padding: 10px; /*向內推，讓自不會太靠近邊框*/
+    width:30%;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-color: #ccccccd7;
+    margin:20px auto 10px ; /*向外推，調整邊框跟邊框的距離，上 左右 下*/
+}
+
+.item {
+    /*border: 1px solid red;*/
+    margin: 10px auto; 
+    width: 80%;    
+}
+
+.item .item-title  { 
+    /*border: 1px solid red;*/
+    text-align: center;
+    background-color: #ccccccd7;
+}
+
+.item .item-content {
+    /*border: 1px solid red;*/
+    background-color: #fffffff0;
+}
+
+.item .item-content .p1 {
+    text-indent: 2em;
+    padding: 20px;
+}
+
+.item .item-content .p2 {
+    text-indent: 2em;
+    padding: 0px 20px 20px;
+}
+
+.item .item-content .item-content-title {
+    /*border: 1px solid red;*/
+    font-weight: bold;
+    text-indent: 2em;
+    padding: 20px 20px 0px 20px;
+}
+
+.item .item-content ul {
+    /*border: 1px solid blue;*/
+    padding: 20px 20px 0px 40px;
+    list-style-type: decimal
+}
+
+.item .item-content ul li {
+    /*border: 1px solid red;*/
+    padding: 0px 0px 20px 10px ;
+    /* border: 1px solid green; */
+}
+
+/*設計給平板使用時顯示的畫面*/
+@media (max-width:1280px){ /*桌機最小大概是1280px，所以低於1280以內套用以下設定*/
+
+.title {
+    /*border: 1px solid red;*/
+    height: 40px;
+    padding: 10px; /*向內推，讓自不會太靠近邊框*/
+    width:65%;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-color: #ccccccd7;
+    margin:20px auto 10px ; /*向外推，調整邊框跟邊框的距離，上 左右 下*/
+}
+
+.item {
+    /*border: 1px solid red;*/
+    margin: 10px auto; 
+    width: 95%;    
+}
+
+.item .item-title  { 
+    /*border: 1px solid red;*/
+    text-align: center;
+    background-color: #ccccccd7;
+    font-size:14px;
+}
+
+
+
+/*設計給手機使用時顯示的畫面*/
+@media (max-width:500px){ /*平板最小是500px，所以低於500以內套用以下設定*/
+    /*最小的手機畫面大概360px*/
+
+.title {
+    /*border: 1px solid red;*/
+    height: 40px;
+    padding: 10px; /*向內推，讓自不會太靠近邊框*/
+    width:90%;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-color: #ccccccd7;
+    margin:20px auto 10px ; /*向外推，調整邊框跟邊框的距離，上 左右 下*/
+}
+
+.item {
+    /*border: 1px solid red;*/
+    margin: 10px auto; 
+    width: 95%;    
+}
