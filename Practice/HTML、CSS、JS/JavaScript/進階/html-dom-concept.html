@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript ：HTML DOM 核心觀念</title>
+    </head>
+    <body>
+        <script>
+            //認識內建的window物件 (HTML DOM 結構的最上層)
+            console.log(window);
+            //取得視窗的寬度和高度
+            console.log(window.innerWidth, window.innerHeight);
+            //透過screen物件，取得螢幕的寬度和高度
+            console.log(window.screen.width, window.screen.height);
+            //取得網址列的內容
+            console.log(window.location.href);
+            //更改網址列的內容(跳轉網頁)
+            //window.location.href="http://www.google.com/" //會直接把網頁跳轉到另一個網頁
+            
+            //認識document物件
+            console.log(window.document); //直覺化
+            console.dir(document); //程式化
+            //取得網頁標題
+            console.log(document.title);
+            //更改網頁標題
+            document.title="新的標題";
+            //取得body標籤
+            console.log(document.body); 
+            //更改網頁主畫面的內容(body標籤的內文)
+            console.log(document.body.innerHTML);
+            //更改內文
+            document.body.innerHTML="Hello HTML DOM"
+            
+        </script>
+    </body>
+</html> 
+

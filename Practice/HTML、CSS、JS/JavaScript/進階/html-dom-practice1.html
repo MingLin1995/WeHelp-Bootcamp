@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript ：HTML DOM 網頁畫面操作1</title>
+
+        <style>
+            .text{text-decoration:underline;font-weight:blod} /*按下按鈕後，id會改為class，style會針對class="text"修改樣式*/
+        </style>
+
+    </head>
+    <body>
+        <h3>HTML DOM 畫面操作</h3>
+        <div id="content">練習網頁畫面的操作</div> <!--給定id標籤-->
+        <button onclick="change2();">點我</button>     <!--點擊按鈕的時候會呼叫函式--> 
+        <!--onclick="change();" 也可以放到其他標籤，例如div等等，放哪裡都可以-->
+        
+        <script>
+            function change(){
+                document.body.innerHTML="新的內容"; //更新內文，放入function，就不會立刻執行。
+            }
+
+            function change2(){
+                //取得標籤物件(id="content")
+                let elem=document.querySelector("#content");
+                console.log(elem);
+
+                //操作標籤物件
+                elem.innerHTML="對特定的標籤做操作";
+                elem.className="text"; //id修改為class標籤
+                elem.style.fontSize="30px"; //直接在div標籤上新增，style的效果，font-size:30px
+                elem.style.color="red";
+            }
+            
+
+
+            
+        </script>
+
+    </body>
+</html> 
+

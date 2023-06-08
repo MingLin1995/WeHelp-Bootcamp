@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 流程控制：判斷式</title>
+    </head>
+    <body>
+        <script>
+            //if 判斷式的基本語法
+
+            //true才會執行此區塊的程式碼，如果為false就會被跳過，就只會印出外面區塊的Outside
+            if(false){ 
+                console.log("Hello");
+            }
+            console.log("Outside")
+
+            //ATM判斷提款最多十萬，最少100元
+            let money=prompt("要領多少錢?","");
+            if(money<100){
+                console.log("太少了，不能領"); //如果小於100就會執行這段程式碼
+            }
+            else if(money<=100000){ //用比較運算的結果來表示布林值
+                console.log("OK，可以提款"); //如果小於10萬就會執行這段程式碼
+            }
+            else{ //false就會顯示此區塊的內容
+                console.log("太多了，不能提款"); //如果大於10萬就會執行這段程式碼
+            }
+            console.log("判斷式結束")
+        </script>
+    </body>
+</html> 

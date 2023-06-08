@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript ：陣列物件</title>
+    </head>
+    <body>
+        <script>
+            //建立空白陣列，可放進變數中操作
+            // new Array() 或是 [] ex. let 變數=[] ;
+            let grades=[];
+            console.log(grades);
+
+            //把資料放入陣列 陣列.push(資料) 
+            let grades2=[70,50] //也可以同時建立初始資料 [資料,資料,.....]
+            grades2.push(80);
+            console.log(grades2);
+
+            //根據資料的編號取得資料 陣列[編號]
+            console.log(grades2[1]) //第二筆資料
+
+            //利用陣列的length屬性取得陣列長度(資料的數量) 陣列.length
+            console.log(grades2.length) //總共有幾個資料
+
+            //利用for迴圈，逐一取得陣列中的資料，加總起來算平均數
+            let total=0; //用來記錄累加的結果
+            for(let i=0;i<grades2.length;i++){
+                total=total+grades2[i];
+            }
+            let avg=total/grades2.length;
+            console.log(avg);
+
+        </script>
+    </body>
+</html> 
+

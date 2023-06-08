@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 流程控制：物件基礎</title>
+    </head>
+    <body>
+        <script>
+            let man =new Object(); //空白物件
+            console.log(man);
+            
+            console.log("--------------------")
+            
+            //建立物件 (物件本身是一個容器，可以裝很多成員)
+            let man2=new Object(); //建立空白物件 nwe Object() 
+            man2.age=18; //物件.成員名稱=資料 (建立物件成員)
+            man2.name="Ming"; //成員名稱分為屬性跟方法，非函式稱為"屬性"
+            man2.talk=function(){ //是函式稱為"方法"
+                console.log("Hello");
+            };
+            //使用物件
+            console.log(man2);
+            console.log(man2.age>=18); //物件.成員名稱
+            man2.talk(); //呼叫函式，在這裡又稱呼叫物件的"方法"
+
+            console.log("--------------------")
+
+            //在物件的方法中，使用this代表"物件"本身
+            let girl=new Object();
+            girl.age=15;
+            girl.name="00";
+            girl.talk=function(){
+                console.log("Hello 我是", this.name ,"年齡是", this.age);
+            }
+            girl.talk();
+            
+            console.log("--------------------")
+
+            //使用JSON建立物件，可以簡化語法
+            //{成員名稱:資料,成員名稱:資料,.......類推}
+            let girl2={
+                age:15 , 
+                name:"00" , 
+                talk:function(){
+                    console.log("Hello 我是", this.name ,"年齡是", this.age);
+                }
+            };
+           girl2.talk();
+
+        </script>
+    </body>
+</html> 
+

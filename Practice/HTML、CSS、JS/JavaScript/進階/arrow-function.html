@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>箭頭函式 Arrow Function</title>
+    </head>
+    <body>
+        <script>
+            //計算1+2+3+....+10的結果
+
+            /* 一般函式寫法
+            function calculate(max){
+                let result=0;
+                let n=1;
+                while (n<=max){
+                    result+=n;
+                    n++;
+                }
+                //console.log(result); 確定可以印出來正確答案，再透過return回傳到外面程式碼印出來
+                return result;
+            }
+            */
+
+            //箭頭函式 =>代替 function
+            let calculate=(max)=>{
+                let result=0;
+                let n=1;
+                while (n<=max){
+                    result+=n;
+                    n++;
+                }
+                return result;
+            };
+
+            //呼叫函式
+            let ans1=calculate(10); //1+2+3+....+10
+            let ans2=calculate(20);//1+2+3+.....+20
+            console.log(ans1, ans2);
+
+            //可以簡化的箭頭函式，只有return的程式碼，很單純，沒有其他複雜的程式碼
+            //乘法的函式
+            let multiply=(n1,n2)=>{
+                return n1*n2;
+            };
+            let ans3=multiply(3,4);
+            console.log(ans3);
+
+            //箭頭函式簡化寫法，只能用在可以簡化的箭頭函式
+            let multiply2=(n3,n4)=>(n3*n4);//注意後面是()，不是{}
+            let ans4=multiply2(4,5);
+            console.log(ans4);
+            
+        </script>
+    </body>
+</html> 
+
+ 

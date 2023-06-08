@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript ：AJAX 網路連線實務</title>
+    </head>
+    <body>
+        <h3>AJAX/XHR網路連線實務</h3>
+        <button onclick="getData();">連線取得資料</button>
+
+        <div id="result"></div> <!--透過按鈕，把取得的資料顯示到網頁上-->
+
+
+        <script>
+           //測試用的連線網址：https://cwpeng.github.io/live-records-samples/data/products.json
+
+           function getData(){
+                //利用fetch進行連線並取得資料
+                fetch("https://cwpeng.github.io/live-records-samples/data/products.json").then(function(respons){
+                    //then(fuction(參數){}) 這個函式可以幫助我們接收伺服器的回應物件，伺服器回應的物件就會放入參數
+
+                    console.log(respons); //可以發現是json格式
+                    return respons.json(); //解讀json格式
+
+                }).then(function(data){ //這段程式碼比較進階，先不用管
+                    console.log(data) //可以發現是比較乾淨的data，陣列物件結構，有三筆資料
+                    
+                    //用迴圈抓出陣列的資料
+                    let result=document.querySelector("#result"); //取得要操作的標籤<div>
+                    for(let i=0;i<data.length;i++){
+                        let product=data[i];
+                        //console.log(product); //印出觀察會呈現所有內容
+                        //console.log(product.name); //印出觀察會發現只有產品名稱
+                        result.innerHTML+="<div>"+product.name+","+product.price+","+product.description+"</div>";
+                        //用+=迴圈資料才不會被蓋掉
+
+                    }
+
+                }); 
+           };
+
+
+        </script>
+    </body>
+</html> 
+

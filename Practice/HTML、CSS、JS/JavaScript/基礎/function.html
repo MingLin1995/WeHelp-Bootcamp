@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 流程控制：函式基礎</title>
+    </head>
+    <body>
+        <script>
+            //建立函式
+            //function 函式名稱(參數名稱){函式內部的程式區塊，在第一個時間點不會執行，要呼叫才會}
+            function test(){
+                console.log("Hello");
+                console.log("World");
+            };
+            //呼叫函式
+            //函式名稱(參數實際資料);
+            test();
+
+            console.log("--------------------------")
+
+            //印出任意的資料
+            function show(message){
+                console.log(message);
+            };
+            show(); //空值
+            show("Hello");
+            show(10);
+
+            console.log("--------------------------")
+
+            //做除法
+            function divide(n1,n2){
+                let result=n1/n2;
+                console.log(result);
+            };
+            divide(3,2);
+            divide(10,5);
+            divide("helle","word"); //NaN=Not a Number 不是一個數字，這運算沒有意義
+
+            console.log("--------------------------")
+
+
+            //做除法，換個寫法
+            //另一種寫法：let 函式名稱=function(參數名稱){函式內部的程式區塊}
+            let divide2=function(n1,n2){
+                let result=n1/n2;
+                console.log(result);
+            };
+            divide(5,2);
+            divide(100,2);
+
+        </script>
+    </body>
+</html> 

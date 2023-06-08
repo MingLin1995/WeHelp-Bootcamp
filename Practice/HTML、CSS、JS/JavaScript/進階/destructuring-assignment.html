@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>解構賦值 Destructruing Assignment</title>
+    </head>
+    <body>
+        <script>
+            //解構：把陣列或物件中的資料拆開
+            //賦值：將拆開的資料分別放入個別的變數中
+
+            //陣列的解構賦值
+            //一般處理
+            let arr=[3,4,5];
+            /*
+            let d1=arr[0];
+            let d2=arr[1];
+            let d3=arr[2];
+            */
+            let [d1,d2,d3]=arr; //[]=陣列；對象是陣列用[]，對象是物件用{}
+            console.log(d1,d2,d3);
+
+            //宣告與賦值分開
+            let arr2=[4,5,6] 
+            let d4,d5,d6,d7; //宣告
+            [d4,d5,d6,d7=7]=arr; //賦值；d7沒有資料，所以給個預設值 
+            console.log(d4,d5,d6,d7) //若d7沒有資料，也沒給預設值，會顯示undefined
+            //如果有資料，也有設定預設值，會優先顯示資料
+
+            //實務：變數資料交換
+            let n1=60;
+            let n2=100;
+            [n2,n1]=[n1,n2];
+            console.log(n1,n2)
+            
+            console.log("-----------------------")
+
+            //物件的解構賦值
+            //一般處理
+            let obj={x:3,y:4};
+            /*
+            let x=obj.x;
+            let y=obj.y;
+            */
+            let{x,y}=obj; //對象是陣列用[]，對象是物件用{}
+            console.log(x,y);
+
+            //宣告與賦值分開；
+            let obj2={a:8,b:9,c:15};
+            let a,b,c; //宣告
+            ({a,b,c=10}=obj2); //賦值；賦值不和宣告一起執行，就要多加()
+            console.log(a,b,c); //c有資料，所以不會印出預設值
+
+            //使用不同的變數名稱，使用解構賦值
+            let obj3={d:13,e:14,f:15};
+            let newD,newE,newF;
+            ({d:newD,e:newE,f:newF}=obj3);
+            console.log(newD,newE,newF);
+
+            //實務：統整函式的物件參數
+
+            /* 一般處理
+            function add(n1,n2){
+                console.log(n1+n2);
+            }
+            add(3,4);
+            */
+
+            /* 把所有參數包裝成一個
+            function add(args){ 
+                console.log(args.n1+args.n2);
+            }
+            add({n1:3,n2:4});
+            */
+
+            //解構賦值
+            function add({n1,n2}){ 
+                console.log(n1+n2);
+            }
+            add({n1:3,n2:4});
+            
+        </script>
+    </body>
+</html> 
+
+ 

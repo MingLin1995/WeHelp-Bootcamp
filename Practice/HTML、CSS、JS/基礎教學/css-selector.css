@@ -1,0 +1,12 @@
+/* 標籤名稱選擇器 */
+body{background-color:#cccccc} /* 直接寫標籤名稱 */
+
+/* class選擇器 */
+.title{margin-bottom:10px} /* class開頭要跟html有對應到 */
+.content{ /*也可以任意排版*/
+    border:1px dashed blue ; 
+    padding:10px ; 
+    width:150px}
+.keyword{color:red}
+/* id選擇器 */
+#title-1{text-decoration:line-through} /*刪除線*/

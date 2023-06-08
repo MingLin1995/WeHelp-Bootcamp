@@ -1,0 +1,57 @@
+.fram1{
+    display:flex; /* 讓下一層項目水平排列(只會影響一層) */
+}
+
+.left1{
+    background-color:red;
+    flex:none;/* 固定配置(不管螢幕大小) */
+    width:50% /* 參考寬度，可以用比例，也可以固定大小 */
+}
+
+.right1{
+    background-color:blue;
+    flex:none;
+    width:50%
+}
+/*------------------------------------------------------*/
+.fram2{
+    display:flex;
+}
+
+.left2{
+    background-color:red;
+    flex:none;/* 固定配置 */
+    width:200px
+}
+
+.right2{
+    background-color:blue;
+    flex:auto; /* 自動把剩下的空間填滿(預設就是這樣) */ 
+    display:flex;/* item的容器是right，所以寫在這 */
+    justify-content:flex-end; /*水平對齊*/
+}
+
+.item{
+    background-color:#cccccc;
+    flex:none;
+    width:100px;
+    margin-right:10px; /*每個item右邊都會多10px的空間*/
+    text-align:center /*文字置中*/
+}
+/*------------------------------------------------------*/
+.welcome{
+    height:300px;
+    background-color:#cccccc;
+    display:flex;
+    justify-content:center; /*水平對齊*/
+    align-items:center; /*垂直對齊*/
+}
+
+.text{
+    width:300px;
+    height:40px;
+    font-size:30px;
+    font-weight:bold; /*粗體*/
+    text-align:center /*發現還是有點沒對齊，找出問題是項目沒有置中*/
+
+}

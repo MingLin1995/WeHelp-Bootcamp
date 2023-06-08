@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 流程控制：迴圈指令</title>
+    </head>
+    <body>
+        <script>
+            //迴圈指令，只能在迴圈內使用
+
+            //break 強迫中斷，跳出迴圈，忽略迴圈內以下的程式碼
+            let n=0;
+            while(n<5){
+                if(n==3){
+                    break; //強迫跳出迴圈，所以最多只會印出0~2，因為印出3的程式碼不會執行
+                }
+                console.log(n);
+                n++;
+            }
+
+            console.log("---------------------------------")
+
+            //continue 直接跳到迴圈一開始的程式碼，忽略以下的程式碼
+            for(let n1=0;n1<5;n1++){
+                if(n1==3){
+                continue; //強迫回到迴圈的上方，直接進入下一圈，只會印出0、1、2、4，3被跳過不會印出來
+                }
+                console.log(n1)
+            }
+            
+            console.log("---------------------------------")
+
+            //找出奇數
+            for(let n2=0;n2<=10;n2++){
+                if(n2%2==0){ //如果n除以2的餘數是0，也就n是偶數就不會印出來
+                    continue;
+                }
+                console.log(n2);
+            }
+
+
+        </script>
+    </body>
+</html> 

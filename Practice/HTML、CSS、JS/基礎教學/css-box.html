@@ -1,0 +1,16 @@
+<!DOCTYPE html>  <!--以下操作都只能用在div區塊模式操作上-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>CSS Box Model 區塊模型 </title>
+    </head>
+    <body style="background-color:#cccccc;border:1px dashed red"> <!--dashed虛框線-->
+        <div style="margin-bottom:10px">文章第一段落的標題</div> <!--bottom(下邊框)跟邊框的距離-->
+        <div style="border:1px dashed blue ; padding:10px ; width:150px ; height:200px"> 
+            <!--邊框+1 虛線 藍色 ; padding 文字跟邊框的距離(內推) ; 外框的寬度(預設會跟父標籤(body)一樣) ; 高度通常都用預設會隨著內容自動調整-->
+            今天的天氣是<span style="color:red">大</span>熱天 <!--寬度不夠，所以會換行-->
+            <div style="background-color:yellow">測試</div> <!--整個框框都有顏色(對應上一層div)，不是只有字-->
+            <br/>br/代表換行<br/>br/代表換行<br/>br/代表換行
+        </div>
+    </body>
+</html>

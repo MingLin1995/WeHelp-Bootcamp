@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>CSS Selector 選擇器 </title>
+        <!-- 除了style，把剩下的程式碼貼到 XXXXX.css(把樣式的檔案獨立出來) 用(link)連接檔案的方式
+        <style>
+            /* 標籤名稱選擇器 */
+            body{background-color:#cccccc} /* 直接寫標籤名稱 */
+
+            /* class選擇器 */
+            .title{margin-bottom:10px} /* class="" 的開頭要跟html有對應到 */
+            .content{ /*也可以任意排版*/
+                border:1px dashed blue ; 
+                padding:10px ; 
+                width:150px}
+            .keyword{color:red}
+
+            /* id選擇器 */   /*id="" 的開頭要跟html有對應到*/
+            #title-1{text-decoration:line-through}
+        </style>
+        -->
+        <link rel="stylesheet" tpye="text/css" href="css-selector.css" />
+
+    </head>
+    <body>
+        <div class="title" id="title-1">文章第一段落的標題</div> 
+        <div class="content"> 
+            今天的天氣是<span class="keyword">大</span>熱天 
+        </div>
+
+        <div style="margin-bottom:10px">文章第二段落的標題</div> 
+        <div style="border:1px dashed blue ; padding:10px ; width:150px "> 
+            今天的<span style="color:red">心情</span>真的不錯 
+        </div>
+    </body>
+</html>

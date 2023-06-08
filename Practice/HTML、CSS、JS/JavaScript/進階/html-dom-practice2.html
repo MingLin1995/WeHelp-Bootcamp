@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript ：HTML DOM 網頁畫面操作2 網頁選單功能</title>
+
+    </head>
+    <body>
+        <div>
+            <span onclick="changeToAbout();">關於我</span>
+            <span onclick="changeToExps();">學經歷</span> <!--點擊下去會呼叫函式-->
+        </div>
+        <hr/>
+        <div id="about">大家好，我是Ming</div>
+        <div id="exps" style="display:none">我是會計畢業，現在轉職工程師</div> <!--用display none把不要的標籤隱藏-->
+
+        <script>
+            function changeToAbout(){
+                 //先取得要操作的標籤
+                 let aboutDiv=document.querySelector("#about");
+                let expsDiv=document.querySelector("#exps");
+
+                //再對標籤做操作
+                aboutDiv.style.display="block";
+                expsDiv.style.display="none";
+            }
+
+            function changeToExps(){
+                //先取得要操作的標籤
+                let aboutDiv=document.querySelector("#about");
+                let expsDiv=document.querySelector("#exps");
+
+                //再對標籤做操作
+                aboutDiv.style.display="none";
+                expsDiv.style.display="block";
+            }
+           
+        </script>
+
+    </body>
+</html> 
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>其餘運算符號 Rest Operator</title>
+    </head>
+    <body>
+        <script>
+            //『其餘』運算符號：...變數 (將其餘的資料放到一個陣列中)；只能放在資料的最後面，不能放中間。
+            
+            //運用在解構賦值
+            //陣列的解構賦值
+            let [n1,n2,n3,...data]=[3,2,1,9,4,6,8,52,6,5];
+            console.log(n1,n2,n3,data);
+            console.log("-------------------------------")
+
+            //物件的解構賦值
+            let {x,y,...obj}={x:3,y:4,z:5,a:56,b:30};
+            console.log(x,y,obj);
+            console.log("-------------------------------")
+
+
+            //運用在函式參數
+            function add(n1,n2,...data){ //其餘參數Rest Parameter
+                console.log(n1,n2,data);
+                let total=n1+n2
+                for(let i=0;i<data.length;i++){
+                    total=total+data[i];
+                }
+                console.log(total);
+            }
+            add(3,4); //因為只有兩筆資料，所以後面會呈現出空字串
+            add(5,6,7,8); 
+
+           
+        </script>
+    </body>
+</html> 
+
+ 

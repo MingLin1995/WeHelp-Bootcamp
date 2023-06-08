@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 流程控制：函式回傳值</title>
+    </head>
+    <body>
+        <script>
+            //回傳值流程：1.呼叫函式2.執行函式3.函式結束，return回傳到呼叫函式的函式 (將資料從函式內部傳回呼叫函式的位置)
+
+            //return用來結束函式，會直接跳出函式內部的程式區塊
+            function test(){
+                return;
+                console.log("Helle")
+            };
+            test(); //會印不出東西，因為return就跳出了，不會執行第13段程式碼
+            //接收函式呼叫的回傳值，可以把呼叫函式的函式放入一個變數中，印出變數(內部傳回來的資料)
+            let value=test();
+            console.log(value); //retuen後沒有放東西，所以會顯示undefined
+
+            console.log("------------------")
+
+            //設計一個除法
+            function divide(n1,n2){
+                let result=n1/n2;
+                console.log(result);
+            }
+            let ans=divide(4,2);
+            console.log(ans); //會印出undefined，因為預設return沒有任何值
+
+            console.log("------------------")
+
+            //優化除法寫法，運用result的運作
+            function divide2(n3,n4){
+                let result=n3/n4;
+                return result;
+            }
+            let ans2=divide2(10,6);
+            console.log(ans2);
+
+            console.log("------------------")
+
+            //通常要用return會是因為要把資料再次計算，例如計算完以後再把答案乘以10
+            function divide3(n5,n6){
+                let result=n5/n6;
+                return result;
+            }
+            let ans3=divide3(10,6);
+            ans3=ans3*10;
+            console.log(ans3);
+        </script>
+    </body>
+</html> 
+

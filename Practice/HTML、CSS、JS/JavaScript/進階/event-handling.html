@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript ：事件處理</title>
+
+        <style>
+            .btn{
+                background-color:#ffcccc;
+                padding:8px; /**內推*/
+                border-radius:5px; /*圓角*/
+                cursor:pointer; /*滑鼠變成手指*/
+            }
+
+
+        </style>
+
+    </head>
+    <body>
+        <h3>事件處理的練習，主要是用this代表整個標籤的操作</h3>
+
+        <button
+            onclick="console.log('點擊事件');"
+            onmouseover="console.log('滑鼠移入');"
+            onmouseout="console.log('滑鼠移出');"
+            onmousedown="console.log('滑鼠按住');"
+            onmouseup="console.log('滑鼠放開');"
+        >
+           點我
+        </button>
+
+        <span 
+            class="btn"
+            onmouseover="over(this);"
+            onmouseout="out(this);"    
+            onmousedown="down(this);"
+            onmouseup="up(this);"
+        >
+        點我點我      <!--this代表整個span標籤-->
+        </span>
+
+
+        <script>
+            function over(x){
+                x.style.backgroundColor="#ddaaaa"; //移入會變顏色
+            }
+
+            function out(x){
+                x.style.backgroundColor="#ffcccc"; //移出會變成原本顏色
+            }
+
+            function down(x){
+                x.style.fontWeight="bold"; //按下變粗體
+            }
+
+            function up (x){
+                x.style.fontWeight="normal"; //放開變成原本字型
+            }
+                       
+        </script>
+    </body>
+</html> 
+

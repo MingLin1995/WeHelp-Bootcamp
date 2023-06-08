@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 運算符號</title>
+    </head>
+    <body>
+        <script>
+            //算術運算：+,-,*,/,%
+            let x=7%3; //7除以3的餘數=1
+            console.log(x);
+            
+            //指定運算：=, +=,-=,*=,/=,%=
+            x+1;
+            console.log(x); //看看會印出甚麼  //會印出1 7%3 因為x+1沒有放進去一個變數中
+            x=x+1 //要將運算明確的放入變數中 //縮寫 x+=1
+            console.log(x)
+
+            //比較運算：>,<,>=,<=,==
+            x=3>4;
+            console.log(x);
+            x=4==4;
+            console.log(x);
+            x="Hello"=="Hello";
+            console.log(x);
+
+            //單元運算：!,++,--
+            x=!x; //!+布林值=布林值的反轉 T→F
+            console.log(x);
+            x=3;
+            x++; //x加一的意思，等同於x+1
+            console.log(x)
+
+            //邏輯運算：&&(and的概念，兩個都是T才會成立),||(or的概念，只要有一個T就成立)
+            let test=true&&true;
+            console.log(test);
+            let test2=true&&false;
+            console.log(test2);
+            let test3=false||false;
+            console.log(test3);
+            let test4=true||false;
+            console.log(test4)
+
+            //請使用者輸入兩個數字，得到乘法的結果
+            //要求使用者輸入：prompt(字串,字串) [回傳]使用者的輸入
+            let n1=prompt("請輸入第一個數字","預設值"); //變數名稱=指令回傳的資料
+            let n2=prompt("請輸入第二個數字","0")
+            let result=n1*n2
+            console.log(result)
+
+    
+
+
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>JacaScript 流程控制：迴圈</title>
+    </head>
+    <body>
+        <script>
+            //while迴圈 ture就會執行
+            let n=0;
+            while(n<5){
+                console.log(n);
+                n++
+            }
+
+            console.log("-----------------------")
+
+            //for 迴圈
+            //for(初始化程式(進到迴圈之前會執行一次);布林值;每次轉圈時執行){要執行的程式}
+           for(let n=0;n<5;n++){
+                console.log(n)
+           }
+
+           console.log("-----------------------")
+
+           //計算1+2+3+....+10的結果
+           let n1=0; //追蹤1,2,3,.....,10
+           let result=0; //把n1累加起來
+           while(n1<=10){
+                result=result+n1; //把每一圈n的資料累加起來
+                n1++;
+        
+           }
+           console.log(result);
+
+
+        </script>
+    </body>
+</html> 
+
+
