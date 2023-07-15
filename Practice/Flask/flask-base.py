@@ -6,7 +6,7 @@ from flask import Flask
 from flask import request
 
 """ 建立 Application 物件(預設__name__)，也可以設定靜態檔案的處理路徑(參考#4) """
-app=Flask(
+flask_base=Flask(
     __name__,
     #4 所有在static資料夾底下的檔案，都會應到網址路徑/abc/檔案名稱
     static_folder="static", #folder指定資料夾名稱 預設為static
@@ -14,7 +14,7 @@ app=Flask(
 )
 
 """ 建立網站首頁的回應方式(建立路徑 / 對應的處理函式) """
-@app.route("/") # /代表網站首頁 (用來回應路徑 / 的處理函式)
+@flask_base.route("/") # /代表網站首頁 (用來回應路徑 / 的處理函式)
 def index(): #用來回應網站首頁的連線方式
     #return "Hello Flask" #回傳到網站首頁的內容
 
@@ -39,7 +39,7 @@ def index(): #用來回應網站首頁的連線方式
     
 
 """ 啟動網站伺服器 """
-#app.run()
+#flask_base.run()
 
 """ 啟動伺服器在終端機輸入python flask-base.py """
 """ 中斷伺服器在終端機按下ctrl+C """
@@ -52,29 +52,29 @@ https://www.google.com.tw/  #埠號:http預設443(預設不用寫出來) 要求�
 '''
 
 """ 啟動網站伺服器，可透過port參數指指定埠號(預設5000) """
-#app.run(port=3000)
+#flask_base.run(port=3000)
 
 """ ----------------#3 路由基礎 Route---------------- """
 '''
 Route 決定網址路徑和處理函式的對應關係，前端輸入不同路徑時，後端程式要決定對應的處理函式
 
-@app.route("路徑")
+@flask_base.route("路徑")
 def 處理函式名稱(參數名稱):
     處理函式的程式區塊
 
 #動態路由設定語法
-@app.route("/固定字首/<參數名稱>")
+@flask_base.route("/固定字首/<參數名稱>")
 def 處理函式名稱(參數名稱):
     處理函式的程式區塊
 '''
 
 """ 建立路徑 /data 對應的處理函式 """
-@app.route("/data")
+@flask_base.route("/data")
 def handleDate():
     return "My Data"
 
 """ 動態路由：建立路徑　/user/使用者名稱 對應的處理函式 """
-@app.route("/user/<username>")
+@flask_base.route("/user/<username>")
 def handleUser(username):
     if username=="Ming":
         return username+"(伺服器的創造者)，你好" 
@@ -112,7 +112,7 @@ def handleUser(username):
 #建立路徑 /getSum對應的處理函式 
 #/路徑(Path)?要求字串(Query String)&要求字串(Query String)
 #並且利用要求字串(Query String)提供彈性：/getSum?min=最小數字 & max=最大數字
-@app.route("/getSum")
+@flask_base.route("/getSum")
 def getSum():#1+2+3+...+100 #1+2+3+...+max #min+(min+1)+....+max
     #接收要求字串中的參數資料
     maxNumber=request.args.get("max",100) #(對應的字串max,預設值為100)
@@ -135,7 +135,7 @@ from flask import redirect
 #載入json模組，可以幫助我們把字典轉換成json格式的字串
 import json
 
-@app.route("/json") 
+@flask_base.route("/json") 
 def indexJson(): 
     """ 透過redirect(網址路徑)，將使用者導向特定網址路徑 """
     #return redirect("/") #導向到路徑/ 也可以導向到完整的網址https://www.google.com.tw/
@@ -158,14 +158,14 @@ def indexJson():
             ensure_ascii=False #指示不要用ASCII編碼處理中文
         )
 
-@app.route("/en/") 
+@flask_base.route("/en/") 
 def indexEnglish():   
     return json.dumps({
             "This is the key of dictionary 1": "This is the value of dictionary 1",
             "This is the key of dictionary 2": "This is the value of dictionary 2"
         })
 
-@app.route("/zh/") 
+@flask_base.route("/zh/") 
 def indexChinese():  
     return json.dumps({
             "這是字典1的key":"這是字典1的value"
@@ -185,10 +185,8 @@ def indexChinese():
 """
 #載入render_template函式
 from flask import render_template
-@app.route("/template")
+@flask_base.route("/template")
 def index_Template():
     return render_template("indexTemplate",name="小明") #index檔案也要改
 
-
-""" ----------------#8 樣板引擎 Template Engine---------------- """
-app.run(port=3000) #通常寫在程式碼最後一行，才能保證上方程式都能執行
+flask_base.run(port=3000) #通常寫在程式碼最後一行，才能保證上方程式都能執行
