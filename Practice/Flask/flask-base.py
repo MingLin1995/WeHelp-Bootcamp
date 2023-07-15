@@ -29,6 +29,7 @@ def index(): #用來回應網站首頁的連線方式
     print("引薦網址：",request.headers.get("referrer"))#例如別人從google點進來到我的網址，那google就是引薦網址
 
     """ #5 前後端互動 """
+    """ 如果主要語言是英文就回應英文，若主要語言是其他語言，就回應中文 """
     lang=request.headers.get("accept-language")
     if lang.startswith("en"): #startswith 檢查字串是否用指定的字開頭
         return "Hello Flask"
@@ -100,11 +101,94 @@ def handleUser(username):
 #http://127.0.0.1:3000/head.png
 
 
-app.run(port=3000) #通常寫在程式碼最後一行，才能保證上方程式都能執行
-
-
 """ ----------------#5 請求物件基礎 HTTP Request---------------- """
 """ 載入請求物件 from flask import request """
 """ 參考程式碼5、程式碼19 """
 
 """ ----------------#6 要求字串處理 Query String---------------- """
+""" 參數名稱=對應的資料&參數名稱=資料&....  """
+#https://www.google.com.tw/search?q(參數名稱)=iphone14(對應的資料) 前端送出要求搜尋iphone14
+
+#建立路徑 /getSum對應的處理函式 
+#/路徑(Path)?要求字串(Query String)&要求字串(Query String)
+#並且利用要求字串(Query String)提供彈性：/getSum?min=最小數字 & max=最大數字
+@app.route("/getSum")
+def getSum():#1+2+3+...+100 #1+2+3+...+max #min+(min+1)+....+max
+    #接收要求字串中的參數資料
+    maxNumber=request.args.get("max",100) #(對應的字串max,預設值為100)
+    maxNumber=int(maxNumber)
+    print("最大數字",maxNumber)
+
+    minNumber=request.args.get("min",1)
+    minNumber=int(minNumber)
+    print("最小數字",maxNumber)
+    
+    result=0
+    for i in range (minNumber,maxNumber):
+        result+=i
+    return "結果："+str(result)
+
+
+""" ----------------#7 回應與導向 Response & Redirect---------------- """
+#載入redirect函式
+from flask import redirect
+#載入json模組，可以幫助我們把字典轉換成json格式的字串
+import json
+
+@app.route("/json") 
+def indexJson(): 
+    """ 透過redirect(網址路徑)，將使用者導向特定網址路徑 """
+    #return redirect("/") #導向到路徑/ 也可以導向到完整的網址https://www.google.com.tw/
+
+    """ 透過Json.dumps(字典)，將字典型態的資料轉換成json格式字串，傳送到前端 """
+    lang=request.headers.get("accept-language")
+    if lang.startswith("en"): 
+        return redirect("/en/") #透過路徑導向轉換到其他路由
+        return json.dumps({
+            "This is the key of dictionary 1": "This is the value of dictionary 1",
+            "This is the key of dictionary 2": "This is the value of dictionary 2"
+        })
+    else:
+        return redirect("/zh/")
+        return json.dumps({
+            "這是字典1的key":"這是字典1的value"
+            ,"這是字典2的key":"這是字典2的value"
+            },
+            #中文轉換成json格式時會被用英文重新編碼，所以要額外處理
+            ensure_ascii=False #指示不要用ASCII編碼處理中文
+        )
+
+@app.route("/en/") 
+def indexEnglish():   
+    return json.dumps({
+            "This is the key of dictionary 1": "This is the value of dictionary 1",
+            "This is the key of dictionary 2": "This is the value of dictionary 2"
+        })
+
+@app.route("/zh/") 
+def indexChinese():  
+    return json.dumps({
+            "這是字典1的key":"這是字典1的value"
+            ,"這是字典2的key":"這是字典2的value"
+            },
+            #中文轉換成json格式時會被用英文重新編碼，所以要額外處理
+            ensure_ascii=False #指示不要用ASCII編碼處理中文
+        ) 
+
+""" ----------------#8 樣板引擎 Template Engine---------------- """
+#回應前端的方式1.直接回應字串2.回應JSON格式字串3.重新導向4.使用樣板引擎
+
+""" 
+建立樣本檔案，放在在專案的templates資料夾底下
+利用 {{資料欄位名稱}} 定義欄位
+透過render_template(檔案路徑,資料欄位名稱=資料) 
+"""
+#載入render_template函式
+from flask import render_template
+@app.route("/template")
+def index_Template():
+    return render_template("indexTemplate",name="小明") #index檔案也要改
+
+
+""" ----------------#8 樣板引擎 Template Engine---------------- """
+app.run(port=3000) #通常寫在程式碼最後一行，才能保證上方程式都能執行
