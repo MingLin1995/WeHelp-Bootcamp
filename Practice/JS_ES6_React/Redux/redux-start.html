@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux 安裝</title>
+    <!-- 搜尋Redux→access these files on unpkg→redux.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.1/redux.min.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        console.log(Redux); //印出 Redux 的核心物件
+      });
+
+      /* －－－－－－－－－#34 Redux 核心操作－－－－－－－－－－ */
+      //1.建立一個全域變數
+      let store;
+      //5.建立狀態處理函式 reducer
+      let reducer = function (
+        state /* 目前的狀態物件{初始的狀態物件} */,
+        action /* 接受到的行動物件 */
+      ) {
+        //無論狀態是否改變，都"一定要回傳"狀態物件，該狀態物件會"完全取代"舊的狀態物件
+        switch (action.type) {
+          case "UPDATE_SWITCH": //若動作的類型符合"UPDATE_SWITCH"則執行下面程式碼
+            return { on: !state.on }; //反運算
+          default: //若不符合類型，返回目前狀態
+            return state;
+        }
+      };
+
+      //一旦狀態有變化，就會被呼叫，取得最新的狀態，更新畫面
+      let handler = function () {
+        //取得最新的狀態 store.getState()
+        let state = store.getState();
+        //根據state.on的狀態判斷，如果是T返回on；如果是F返回off
+        document.body.innerHTML = state.on ? "on" : "off";
+      };
+
+      window.addEventListener("load", () => {
+        //2.建立狀態儲存空間 createStore
+        //Redux.createStore(狀態處理函式, {初始的狀態物件});
+        store = Redux.createStore(reducer, { on: false });
+
+        //6.註冊回應狀態改變的函式 store.subscribe(通知處理函式);
+        store.subscribe(handler);
+        /* //取消對應的、已註冊的狀態改變函式 unsubscribe
+        let unsubscribe = store.subscribe(handler);
+        unsubscribe(); */
+
+        document.addEventListener("click", () => {
+          //3.透過dispatch建立行動物件，派送改變狀態的行動，給狀態處理函式 reducer
+          //store.dispatch(行動物件);
+          store.dispatch({
+            //4.行動物件一定要提供type屬性，告訴別人行動是甚麼
+            type: "UPDATE_SWITCH",
+          });
+          //console.log(store.getState()); //點擊後，把最新的狀態印出來
+        });
+      });
+    </script>
+  </head>
+  <body>
+    off
+  </body>
+</html>

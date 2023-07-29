@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Switch</title>
+    <style type="text/css">
+      .switch {
+        width: 60px;
+        height: 30px;
+        background-color: #dddddd;
+        border-radius: 15px;
+      }
+      .switch .btn {
+        width: 30px;
+        height: 30px;
+        background-color: #444444;
+        border-radius: 15px; /* 跟外框一樣，就會有按鈕的效果 */
+      }
+      .switch-on {
+        background-color: #ddffdd;
+      }
+      .switch-on .btn {
+        background-color: #448844;
+        margin-left: 30px; /* 左邊空出30像素，就會很像按鈕跑到右邊 */
+      }
+    </style>
+    <!-- 準備好 react和babel編譯器 -->
+    <script src="https://unpkg.com/react@16.14.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      /* 選項開關元件實務範例 */
+      class Switch extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { on: false }; //預設沒有打開
+        }
+        render() {
+          let className = "switch";
+          if (this.state.on) {
+            className += " switch-on";
+          }
+          //使用者點擊時，更新狀態
+          return (
+            <div onClick={this.update.bind(this)} className={className}>
+              <div className="btn"></div>
+            </div>
+          );
+        }
+        update() {
+          //currentState 參數 代表現在的狀態
+          //!currentState.on 代表將on的參數，取反值，比方on=false，就會改變為true
+          this.setState((currentState) => ({ on: !currentState.on }));
+        }
+      }
+      window.addEventListener("load", () => {
+        ReactDOM.render(<Switch />, document.querySelector(".switch-0"));
+        ReactDOM.render(<Switch />, document.querySelector(".switch-1"));
+      });
+    </script>
+  </head>
+  <body>
+    <div class="switch-0"></div>
+    <hr />
+    <div class="switch-1"></div>
+  </body>
+</html>

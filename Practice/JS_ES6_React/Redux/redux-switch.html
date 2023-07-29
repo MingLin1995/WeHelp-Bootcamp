@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redux 選項開關</title>
+    <style type="text/css">
+      .switch {
+        background-color: #cccccc;
+        width: 60px;
+        height: 30px;
+        border-radius: 15px;
+      }
+      .switch > .btn {
+        background-color: #444444;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+      }
+      .switch-on {
+        background-color: #aaffaa;
+      }
+      .switch-on > .btn {
+        background-color: #006600;
+        margin-left: 30px;
+      }
+    </style>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- 載入 Redux 套件 -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+    <script type="text/babel">
+      // 開關中的圓形按鈕組件
+      class Button extends React.Component {
+        render() {
+          return <div className="btn"></div>;
+        }
+      }
+      // 選項開關組件，根據 state 的設定，調整畫面。點擊時可更新。
+      class Switch extends React.Component {
+        constructor(props) {
+          super(props);
+          // 1. 初始化狀態資料，資料從 Redux 取得
+          this.state = store.getState(); //{on:false} 外包給Redux
+        }
+        render() {
+          // 2. 使用者可點擊畫面
+          return (
+            <div
+              className={"switch" + (this.state.on ? " switch-on" : "")}
+              onClick={this.update.bind(this)}
+            >
+              <Button />
+            </div>
+          );
+        }
+        // 3. 派送點建立：使用者點擊，觸發狀態的變化，直接派送給 Redux 做處理
+        update() {
+          //串出去到Redux
+          store.dispatch({
+            type: "ChangeSwitch",
+          });
+        }
+        // 以下程式是用來連接 React 和 Redux
+        // 連結點建立：註冊狀態改變的通知處理函式，回應 Redux 中的狀態變化，會輸較refresh
+        componentDidMount() {
+          this.unsubscribe = store.subscribe(this.refresh.bind(this));
+        }
+        // 4. 回應狀態變化：Redux 處理完成，返回 React 接收最新狀態，並觸發畫面的更新
+        refresh() {
+          //再串回來到React
+          this.setState(store.getState());
+        }
+        // 連結點斷開：若使用者介面被遺棄，則取消註冊函式
+        componentWillUnmount() {
+          this.unsubscribe();
+        }
+      }
+
+      // 以下是 Redux 的程式
+      let store;
+      let reducer = function (state, action) {
+        // 根據 action 的 type，來執行狀態更新的動作
+        switch (action.type) {
+          case "ChangeSwitch":
+            return { on: !state.on }; //派送行動到Redux，更新狀態會直接呼叫有"註冊"的方法
+          default:
+            return state;
+        }
+      };
+
+      // 以下是網頁的初始化程式
+      window.addEventListener("load", () => {
+        // 初始化 Redux 的狀態儲存空間
+        store = Redux.createStore(reducer, { on: false });
+        // 初始化 React 的介面繪製
+        ReactDOM.render(<Switch />, document.body);
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>井字遊戲範例</title>
+    <style type="text/css">
+      .board {
+        /* 遊戲盤 */
+        width: 300px;
+        height: 300px;
+        margin: 50px auto;
+        border: 5px solid #000000;
+        border-radius: 10px;
+        position: relative;
+      }
+      .board > .cell {
+        /* 九個小框框 */
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        font-size: 50px;
+        text-align: center;
+        border: 1px solid #000000;
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .board > .line {
+        /* 線段設定 */
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 300px;
+        height: 300px;
+      }
+    </style>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      // 8.建立贏家的線條呈現
+      class Line extends React.Component {
+        render() {
+          // 根據贏家的資訊：startIndex 和 endIndex，把線條用 svg 標籤畫在畫面上
+          /* 將給定的資訊換算成X、Y座標，利用SVG元件畫線 */
+          let startX = this.props.startIndex % 3;
+          let startY = Math.floor(this.props.startIndex / 3);
+          let endX = this.props.endIndex % 3;
+          let endY = Math.floor(this.props.endIndex / 3);
+          return (
+            <svg className="line">
+              <line
+                x1={startX * 100 + 50}
+                y1={startY * 100 + 50}
+                x2={endX * 100 + 50}
+                y2={endY * 100 + 50}
+                stroke="red"
+                strokeWidth="5"
+              />
+            </svg>
+          );
+        }
+      }
+
+      // 7.建立框框組件(看使用者要劃圈圈還是XX，點擊更新)
+      class Cell extends React.Component {
+        render() {
+          // 根據 mark 的資料，決定框框中的文字。-1:"", 0:"O", 1:"X"
+          let text = "";
+          if (this.props.mark === 0) {
+            text = "O";
+          } else if (this.props.mark === 1) {
+            text = "X";
+          }
+          return (
+            //使用者點擊，就會呼叫click方法
+            <div className="cell" onClick={this.click.bind(this)}>
+              {text}
+            </div>
+          );
+        }
+        click() {
+          this.props.update(this.props.index);
+        }
+      }
+
+      // 2. 建立遊戲盤組件 (控制遊戲最重要的組件)
+      class Board extends React.Component {
+        constructor(props) {
+          super(props);
+          /*
+      			框框在 marks 中的編號 (index)
+      			0 1 2
+      			3 4 5
+      			6 7 8
+      		*/
+          // 3. 應用程式主要狀態
+          this.state = {
+            circle: 0, // 回合數
+            marks: [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 框框標記：-1 無, 0: 圈, 1: 叉 (index位置要對應)
+            winner: null, // 贏家的資訊，null 代表沒有
+          };
+        }
+        // 4.主要的畫面更新
+        render() {
+          let cells = [];
+          for (let i = 0; i < this.state.marks.length; i++) {
+            // 利用屬性傳遞框框的編號 (index)，框框的標記 (mark) 和更新的回呼函式 (update) 給 Cell 組件
+            cells.push(
+              //Cell框框組件(寫在上方)
+              <Cell
+                index={i}
+                mark={this.state.marks[i]}
+                update={this.updateMark.bind(this)}
+              />
+            );
+          }
+          //如果不等於null，代表有贏家
+          if (this.state.winner !== null) {
+            // 利用屬性傳遞線段的開頭框框編號 (startIndex) 和結束框框標號 (endIndex) 給 Line 組件(寫在上方)
+            cells.push(
+              <Line
+                startIndex={this.state.winner.startIndex}
+                endIndex={this.state.winner.endIndex}
+              />
+            );
+          }
+          return <div className="board">{cells}</div>;
+        }
+        //5. 用來更新框框的標記(主要的標記更新邏輯)
+        updateMark(index) {
+          //alert("Clicked：" + index); //確認點擊後，編號沒問題
+          this.setState((preState) => {
+            /*
+				更新標記的先決條件：
+					a. 目前的標記必須是 -1，代表框框空白
+					b. 目前沒有贏家
+      		*/
+
+            //先取得目前的編號
+            let currentMark = preState.marks[index];
+            //目前標記必須是-1，且還沒有贏家，才會更新
+            if (currentMark === -1 && preState.winner === null) {
+              let mark = preState.circle % 2; // 根據回合數，決定要畫圈或叉(取餘數來辨認)
+              preState.marks[index] = mark; // 把圈或叉的標記，記錄到 marks 裡面
+              let winner = this.checkWinner(preState.marks); // 標記一更新就要偵測有沒有贏家
+              return {
+                circle: preState.circle + 1,
+                marks: preState.marks,
+                winner: winner,
+              };
+            }
+          });
+        }
+        // 6.偵測是否有贏家，並且取得贏家的資訊
+        checkWinner(marks) {
+          /*
+      			若有贏家，回傳
+      			{side:贏家是圈或叉, startIndex:線條起點框框編號, endIndex:線條終點框框編號}
+      		*/
+          /*
+      			框框在 marks 中的編號 (index)
+      			0 1 2
+      			3 4 5
+      			6 7 8
+      		*/
+          // 偵測水平方向的三條線是否有相同的標記
+          let index;
+          for (let y = 0; y < 3; y++) {
+            if (
+              marks[y * 3] !== -1 &&
+              marks[y * 3] === marks[y * 3 + 1] &&
+              marks[y * 3 + 1] === marks[y * 3 + 2]
+            ) {
+              return {
+                side: marks[y * 3],
+                startIndex: y * 3,
+                endIndex: y * 3 + 2,
+              };
+            }
+          }
+
+          // 偵測垂直方向的三條線是否有相同的標記
+          for (let x = 0; x < 3; x++) {
+            if (
+              marks[x] !== -1 &&
+              marks[x] === marks[3 + x] &&
+              marks[3 + x] === marks[2 * 3 + x]
+            ) {
+              return { side: marks[x], startIndex: x, endIndex: 2 * 3 + x };
+            }
+          }
+
+          // 偵測斜線方向的兩條線是否有相同的標記
+          if (
+            marks[0] !== -1 &&
+            marks[0] === marks[4] &&
+            marks[4] === marks[8]
+          ) {
+            return { side: marks[0], startIndex: 0, endIndex: 8 };
+          } else if (
+            marks[2] !== -1 &&
+            marks[2] === marks[4] &&
+            marks[4] === marks[6]
+          ) {
+            return { side: marks[2], startIndex: 2, endIndex: 6 };
+          }
+          // 目前還沒有贏家
+          return null;
+        }
+      }
+
+      window.addEventListener("load", () => {
+        //1.初始化 React 的介面繪製
+        ReactDOM.render(<Board />, document.body);
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

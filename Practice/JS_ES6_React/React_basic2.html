@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style type="text/css">
+      /* #27 JSX 套用樣式 CSS Style */
+      .head {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      /* #28 事件處理 Event Handling */
+      .head-3 {
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 引入 React 和 ReactDOM 的相關程式庫 -->
+    <script src="https://unpkg.com/react@16.14.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js"></script>
+    <!-- 引入 AJX相關程式庫 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      /* －－－－－－－－－#25 JSX 語法與 Babel 編譯器－－－－－－－－ */
+
+      /*
+      瀏覽器不支援JSX語法
+      Babel：將JSX轉換成瀏覽器相容的程式
+      1.HTML載入Babel編譯器套件 https://unpkg.com/@babel/standalone/babel.min.js
+      2.script增加 type="text/babel" 屬性
+      */
+
+      //JSX：在JS中類似HTML標籤的語法
+      //JSX用途：目標取代React Element的語法
+
+      //原生寫法：React.createElement()
+      /* class MyHead extends React.Component {
+        render() {
+          //建立以"原生HTML標籤"為基礎的React Element
+          return React.createElement("h1", {className:"head"}, "Hello World");
+        }
+      }
+      window.addEventListener("load", () => {
+        //建立以"React 組件"為基礎的React Element
+        let elem = React.createElement(MyHead);
+        ReactDOM.render(elem, document.body);
+      }); */
+
+      class MyHead extends React.Component {
+        render() {
+          //取代 React.createElement("h1", {className:"head"}, "Hello World");
+          return <h1 className="head">Hello World</h1>;
+        }
+      }
+      window.addEventListener("load", () => {
+        //取代 React.createElement(MyHead);
+        let elem = <MyHead />;
+        ReactDOM.render(elem, document.body);
+      });
+
+      /* －－－－－－－－－#26 JSX 基本使用與動態資料－－－－－－－－ */
+      class MyHead2 extends React.Component {
+        render() {
+          //取代 React.createElement("h1", {className:"head"}, "Hello World"+this.props.level);
+          return <h1 className="head">Hello World {this.props.level}</h1>;
+        }
+      }
+      window.addEventListener("load", () => {
+        //取代 React.createElement(MyHead,{level:2});
+        let elem = <MyHead2 level="666" />;
+        ReactDOM.render(elem, document.body);
+      });
+
+      /* -----組類別的建構式----- */
+      class MyHead3 extends React.Component {
+        render() {
+          //取代 React.createElement("div", {className:"head"}, "Hello World"+this.props.level);
+          return <div className="head">Hello World {this.props.level}</div>;
+        }
+      }
+      class MyHeadList3 extends React.Component {
+        render() {
+          //取代 #22 巢狀組件結構
+          return (
+            <div>
+              <MyHead3 level="1" />
+              <MyHead3 level="2" />
+              <MyHead3 level="3" />
+            </div>
+          );
+        }
+      }
+      window.addEventListener("load", () => {
+        //取代 React.createElement(MyHeadList);
+        let elem = <MyHeadList3 />;
+        ReactDOM.render(elem, document.body);
+      });
+
+      /* －－－－－－－－－#27 JSX 套用樣式 CSS Style－－－－－－－－ */
+      class MyHead4 extends React.Component {
+        render() {
+          //行內樣式 style={{ color: "red" }}
+          //增加彈性 style={{ color: this.props.color }}
+          return (
+            <div className="head" style={{ color: this.props.color }}>
+              Hello World {this.props.level}
+            </div>
+          );
+          /* 傳統寫法
+          return React.createElement(
+            "div",
+            { className: "head", style: { color: this.props.color } },
+            "Hello world" + this.props.level
+          );
+          */
+        }
+      }
+      class MyHeadList4 extends React.Component {
+        render() {
+          return (
+            //透過屬性設定可以進一步彈性設定CSS
+            <div>
+              <MyHead4 level="1" color="red" />
+              <MyHead4 level="2" color="blue" />
+              <MyHead4 level="3" color="green" />
+            </div>
+          );
+        }
+      }
+      window.addEventListener("load", () => {
+        let elem = <MyHeadList4 />;
+        ReactDOM.render(elem, document.body);
+      });
+
+      /* －－－－－－－－－#28 事件處理 Event Handling－－－－－－－－ */
+      class MyHead5 extends React.Component {
+        //建立建構式
+        constructor(props) {
+          super(props);
+          this.state = { color: "red" };
+        }
+
+        render() {
+          return (
+            //使用行內樣式設定CSS
+            //屬性的部分 設定事件處理 onClick ; bind(this)主鍵實體帶入到事件處理中
+            <div
+              className={"head-" + this.props.level}
+              style={{ color: this.state.color }}
+              onClick={this.clickHandler.bind(this)}
+              onMouseOver={this.mouseOverHandler.bind(this)}
+              onMouseOut={this.mouseOutHandler.bind(this)}
+            >
+              Hello Component{" "}
+            </div>
+          );
+        }
+        //事件物件
+        clickHandler(e) {
+          //alert("Clicked"); //確定可以觸發
+          //當使者點擊畫面，把顏色換掉 (這邊的this是主件實體，因為有透過bind綁定，所以才可以這樣用)
+          this.setState({ color: "blue" });
+        }
+        mouseOverHandler(e) {
+          this.setState({ color: "green" });
+        }
+        mouseOutHandler(e) {
+          this.setState({ color: "yellow" });
+        }
+      }
+      window.addEventListener("load", () => {
+        ReactDOM.render(<MyHead5 level="3" />, document.body);
+      });
+
+      /* －－－－－－－－－#29 表單處理 Form Handling－－－－－－－－ */
+
+      class MyHead6 extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            name: "",
+            gender: "male",
+            story: "",
+          };
+        }
+
+        render() {
+          return (
+            //form上註冊事件，綁定主件Component
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              名子(單行輸入框){" "}
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.handleNameChange.bind(this)}
+              />
+              <br />
+              性別(下拉式選單){" "}
+              <select
+                value={this.state.gender}
+                onChange={this.handleGenderChange.bind(this)}
+              >
+                {" "}
+                <option value="male">男</option>
+                <option value="female">女</option>
+              </select>
+              <br />
+              你的自我介紹(多行輸入框)
+              <textarea
+                value={this.state.story}
+                onChange={this.handleStoryChange.bind(this)}
+              />
+              <br />
+              <input type="submit" value="Submit" />
+            </form>
+          );
+        }
+        handleNameChange(e) {
+          //從最新的單行輸入框的value去更新 (currentTarget 指當前觸發事件的元素)
+          this.setState({ name: e.currentTarget.value });
+        }
+        handleGenderChange(e) {
+          this.setState({ gender: e.currentTarget.value });
+        }
+        handleStoryChange(e) {
+          this.setState({ story: e.currentTarget.value });
+        }
+
+        handleSubmit(e) {
+          //送出表單時，停止重新整理網頁(可以注意觀察，沒有設定時，表單送出會重新整理網頁)
+          e.preventDefault();
+          console.log("表單送出");
+          console.log("Name：" + this.state.name);
+          console.log("Gender：" + this.state.gender);
+          console.log("story：" + this.state.story);
+          //根據使用者輸入的資料，可以自由運用想要的邏輯、計算
+        }
+      }
+      window.addEventListener("load", () => {
+        ReactDOM.render(<MyHead6 level="3" />, document.body);
+      });
+    </script>
+  </body>
+</html>

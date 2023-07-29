@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redux 井字遊戲</title>
+    <style type="text/css">
+      .board {
+        width: 300px;
+        height: 300px;
+        margin: 50px auto;
+        border: 5px solid #000000;
+        border-radius: 10px;
+        position: relative;
+      }
+      .board > .cell {
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        font-size: 50px;
+        text-align: center;
+        border: 1px solid #000000;
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .board > .line {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 300px;
+        height: 300px;
+      }
+    </style>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- 載入 Redux 套件 -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+    <script type="text/babel">
+      /* 主要思考，哪些應用程式的"狀態"是需要外包出去 */
+      /* 狀態：回合數、框框標記、贏家的資訊 */
+
+      // 建立贏家的線條呈現
+      class Line extends React.Component {
+        render() {
+          // 根據贏家的資訊：startIndex 和 endIndex，把線條用 svg 標籤畫在畫面上
+          let startX = this.props.startIndex % 3;
+          let startY = Math.floor(this.props.startIndex / 3);
+          let endX = this.props.endIndex % 3;
+          let endY = Math.floor(this.props.endIndex / 3);
+          return (
+            <svg className="line">
+              <line
+                x1={startX * 100 + 50}
+                y1={startY * 100 + 50}
+                x2={endX * 100 + 50}
+                y2={endY * 100 + 50}
+                stroke="red"
+                strokeWidth="5"
+              />
+            </svg>
+          );
+        }
+      }
+      // 建立框框"組件"
+      class Cell extends React.Component {
+        render() {
+          // 根據 mark 的資料，決定框框中的文字。-1:"", 0:"O", 1:"X"
+          let text = "";
+          if (this.props.mark === 0) {
+            text = "O";
+          } else if (this.props.mark === 1) {
+            text = "X";
+          }
+          return (
+            <div className="cell" onClick={this.click.bind(this)}>
+              {text}
+            </div>
+          );
+        }
+        click() {
+          this.props.update(this.props.index);
+        }
+      }
+      // 建立遊戲盤"組件"
+      class Board extends React.Component {
+        constructor(props) {
+          super(props);
+          /*
+					框框在 marks 中的編號 (index)
+					0 1 2
+					3 4 5
+					6 7 8
+				*/
+          // 1. 初始化狀態資料，資料從 Redux 取得
+          this.state = redux.store.getState();
+        }
+        render() {
+          // 2. 建立可互動的使用者畫面
+          let cells = [];
+          for (let i = 0; i < this.state.marks.length; i++) {
+            // 利用屬性傳遞框框的編號 (index)，框框的標記 (mark) 和更新的回呼函式 (update) 給 Cell 組件
+            cells.push(
+              <Cell
+                index={i}
+                mark={this.state.marks[i]}
+                update={this.updateMark.bind(this)}
+              />
+            );
+          }
+          if (this.state.winner !== null) {
+            // 利用屬性傳遞線段的開頭框框編號 (startIndex) 和結束框框標號 (endIndex) 給 Line 組件
+            cells.push(
+              <Line
+                startIndex={this.state.winner.startIndex}
+                endIndex={this.state.winner.endIndex}
+              />
+            );
+          }
+          return <div className="board">{cells}</div>;
+        }
+        // 用來更新框框的標記
+        // 3. 派送點建立：使用者點擊，觸發"狀態"的變化，直接派送給 Redux 做處理
+        updateMark(index) {
+          redux.store.dispatch({
+            type: "UpdateMark",
+            index: index,
+          });
+        }
+
+        // 以下程式是用來連接 React 和 Redux
+        // 4. 回應狀態變化：Redux 處理完成，返回 React 接收最新狀態，並觸發畫面的更新
+        refresh() {
+          // 把 Redux 的狀態設定給組件，觸發畫面更新
+          this.setState(redux.store.getState());
+        }
+        // 連結點建立：註冊狀態改變的通知處理函式，回應 Redux 中的狀態變化
+        componentDidMount() {
+          this.unsubscribe = redux.store.subscribe(this.refresh.bind(this));
+        }
+        // 連結點斷開：若使用者介面被遺棄，則取消註冊函式
+        componentWillUnmount() {
+          this.unsubscribe();
+        }
+      }
+
+      // 以下是 Redux 的程式，包裝在一個 redux 的全域變數中
+      let redux = {
+        store: null, //儲存空間物件
+        //當前狀態,派送過來的行動
+
+        //updateMark
+        reducer: function (state, action) {
+          // 根據 action 的 type，來執行狀態更新的動作
+          switch (action.type) {
+            case "UpdateMark":
+              /*
+							更新標記的先決條件：
+								a. 目前的標記必須是 -1，代表框框空白
+								b. 目前沒有贏家
+						*/
+              let currentMark = state.marks[action.index];
+              if (currentMark === -1 && state.winner === null) {
+                // 符合更新條件
+                let mark = state.circle % 2; // 根據回合數，決定要畫圈或叉
+                state.marks[action.index] = mark; // 把圈或叉的標記，記錄到 marks 裡面
+                let winner = redux.checkWinner(state.marks); // 偵測贏家
+                return {
+                  circle: state.circle + 1,
+                  marks: state.marks,
+                  winner: winner,
+                };
+              } else {
+                // 不符合更新條件，不更新狀態 reducer一定要回傳狀態
+                return state;
+              }
+            default:
+              return state;
+          }
+        },
+
+        //checkWinner
+        checkWinner: function (marks) {
+          /*
+					若有贏家，回傳
+					{side:贏家是圈或叉, startIndex:線條起點框框編號, endIndex:線條終點框框編號}
+				*/
+          /*
+					框框在 marks 中的編號 (index)
+					0 1 2
+					3 4 5
+					6 7 8
+				*/
+          // 偵測水平方向的三條線是否有相同的標記
+          let index;
+          for (let y = 0; y < 3; y++) {
+            if (
+              marks[y * 3] !== -1 &&
+              marks[y * 3] === marks[y * 3 + 1] &&
+              marks[y * 3 + 1] === marks[y * 3 + 2]
+            ) {
+              return {
+                side: marks[y * 3],
+                startIndex: y * 3,
+                endIndex: y * 3 + 2,
+              };
+            }
+          }
+          // 偵測垂直方向的三條線是否有相同的標記
+          for (let x = 0; x < 3; x++) {
+            if (
+              marks[x] !== -1 &&
+              marks[x] === marks[3 + x] &&
+              marks[3 + x] === marks[2 * 3 + x]
+            ) {
+              return { side: marks[x], startIndex: x, endIndex: 2 * 3 + x };
+            }
+          }
+          // 偵測斜線方向的兩條線是否有相同的標記
+          if (
+            marks[0] !== -1 &&
+            marks[0] === marks[4] &&
+            marks[4] === marks[8]
+          ) {
+            return { side: marks[0], startIndex: 0, endIndex: 8 };
+          } else if (
+            marks[2] !== -1 &&
+            marks[2] === marks[4] &&
+            marks[4] === marks[6]
+          ) {
+            return { side: marks[2], startIndex: 2, endIndex: 6 };
+          }
+          // 目前還沒有贏家
+          return null;
+        },
+      };
+
+      // 以下是網頁的初始化程式
+      window.addEventListener("load", () => {
+        // 初始化 Redux 的儲存空間、狀態
+        redux.store = Redux.createStore(redux.reducer, {
+          circle: 0, // 回合數
+          marks: [-1, -1, -1, -1, -1, -1, -1, -1, -1], // 框框標記：-1 無, 0: 圈, 1: 叉
+          winner: null, // 贏家的資訊，null 代表沒有
+        });
+        // 初始化 React 的介面繪製
+        ReactDOM.render(<Board />, document.body);
+      });
+    </script>
+  </head>
+  <body></body>
+</html>
