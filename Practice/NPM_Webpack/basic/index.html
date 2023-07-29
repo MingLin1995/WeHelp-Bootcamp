@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--
+
+    JS專案管理工具- Node+NPM 
+    1.專案描述檔 package.json 
+    2.第三方套件node_modules 
+    3.專案原始碼 JS python
+    4.Webpack打包→轉換成可以使用的程式碼 
+    
+    1.專案描述檔 package.json
+    初始化專案→
+    建立專案資料夾→
+    VSCode打開該資料夾→
+    終端機輸入npm init -y (會出現檔名固定叫做package.json的檔案)
+
+    2.第三方套件 node_modules：
+
+        套件的使用"範圍"
+        一、單一專案，通常安裝在node_modules ex.react、webpack
+            
+        二、全域，任何專案都能用  ex.mocha、firebase-tools
+            npm install 套件名稱 -g
+
+        更新套件：npm update 套件名稱 -g　
+        解除套件：npm uninstall 套件名稱-g
+            
+        套件的使用"時機"
+        一、"執行階段"使用的套件 dependencies  ex.react、express
+            npm install 套件名稱 --save
+        二、"開發階段"使用的套件 devDependencies  ex.webpack、babel
+            npm install 套件名稱 --save-dev
+
+        更新套件：npm update 套件名稱
+        解除套件：npm uninstall 套件名稱 
+
+        npm install react --save 存在node_modules→react
+        npm install webpack --save-dev 存在node_modules→webpack
+        npm install mocha -g 因為是全域套件，所以不會存在專案檔中，會存在電腦內
+
+    -->
+
+    <!-- 
+
+    Webpack 快速開始
+        核心：模組打包　Module Bundler
+            支援程式模組化 可以使用 export/import 載入模組
+
+        衍伸：專案建置 Project Builder
+            支援特殊語法編譯 ex.React JSX
+
+    0.  初始化專案 npm init-y
+
+    1.安裝webpack和webpack-cli 開發階段套件
+        npm install webpack webpack-cli --save-dev
+    2.建立適當的資料夾結構
+        專案資料夾
+            -src (放原始程式碼)
+                index.js
+            -dist (會自動產生"可執行程式碼")
+        package.json
+    3.在package.json專案描述檔中，定義"webpack建置命令"
+        "scripts" 可以定義執行的命令 新增 "build":"webpack"
+        就可以在終端機使用 npm run build
+        dist資料夾會將src內的檔案，包裝成main.js產生可執行程式碼
+    4.建立網頁測試"可執行的程式碼"
+        dist資料夾，新增一個HTML去測試
+    5.未來有需要更新程式碼
+        更新src內的原始檔案→
+        npm run build 打包
+
+    -->
+
+    <!-- 
+
+    Webpack 設定檔：Entry、Output、Mode
+    一、在專案資料夾的根目錄，建立webpack.config.js檔案
+    二、核心設定，
+        1.程式入口：指定原始碼中的主要程式檔案(程式進入點)
+        2.程式輸出：指定建置後的可執行程式檔案
+        3.建置模式：開發模式(development)會比較方便DEBUG、上線模式(production)
+
+    -->
+
+    <!-- 
+    # index.js檔案 主程式
+    # ilb.js檔案 副程式
+
+    Webpack 模組管理：輸出與載入
+    讓JS可以用import/export
+    載入模組程式 import "程式檔案路徑"
+    
+    一般輸出
+    副程式 export{變數名稱1,變數名稱2,...}
+    主程式 import{變數名稱1,變數名稱2,...} from "程式檔案路徑"
+
+
+    預設輸出
+    副程式 export default 變數名稱1,變數名稱2,...
+    主程式 import 變數名稱1,變數名稱2,... from "程式檔案路徑"
+
+
+    混合使用
+    副程式 export{變數名稱1 as default,變數名稱2,...}
+    主程式 import變數名稱1,{變數名稱2,...} from "程式檔案路徑"
+
+    -->
+
+    <!-- 
+
+    載入器 Loader (在"入口"撰寫 index.js)
+    常見的：預設載入器（JS）、CSS載入器、SASS載入器、Babel載入器
+
+    載入器設定
+    CSS載入器：
+        安裝style-loader、css-loader套件
+        在Webpack設定檔中設定載入器套用規則
+    SASS載入器：
+        安裝sass-loader、node-sass套件
+        在Webpack設定檔中設定載入器套用規則
+    Babel載入器：
+        之後會提到，因為比較複雜
+
+    -->
+
+    <!-- 
+    Webpack DevServer 開發用伺服器
+    1.安裝Webpack DevServer套件
+        npm install webpack-dev-server --save-dev
+    2.Webpack設定檔加入DevServer設定
+    3.在package.json專案描述檔中，定義"DevServer建置命令"
+        "scripts" 可以定義執行的命令 新增 "start":"webpack-dev-server --open"
+
+
+
+    -->
+  </body>
+</html>
