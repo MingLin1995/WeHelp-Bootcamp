@@ -1,1 +1,1 @@
-#ES6、React、Redux
+#ES6、React、React JSX、Redux
