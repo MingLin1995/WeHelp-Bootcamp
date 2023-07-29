@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+        1.初始化專案 
+            npm init -y 
+            //會出現 package.json 檔案
+        2.安裝 webpack套件
+            npm install webpack webpack-cli --save-dev
+            //會出現 node_modules 資料夾
+        3.自己新增webpack設定檔案
+            webpack.config.js
+            //入口
+            //輸出
+            //模組載入規則
+        4.安裝 css套件
+            npm install style-loader css-loader --save-dev
+        5.package.json 新增執行的命令
+            "scripts" 可以定義執行的命令 新增 "build":"webpack"
+        6.新增 src、dist 資料夾
+            一、src新增
+                index.js console.log("test");
+                index.css 背景顏色
+            二、index.js
+            import css
+            三、dist新增
+                index.html script src css
+        7.測試看看有沒有問題 
+            一、npm run build
+            二、打開dist內的html
+
+        ///////React、Babel處理///////
+        1.安裝 react套件
+            一、npm install react react-dom --save
+            二、index.js新增 
+                import React from "react";
+                import ReactDOM from "react-dom";
+        2.安裝 babel
+        https://babeljs.io/setup 選 Webpack
+            一、安裝套件
+                a. Installation (npm安裝)
+                b. Via config (新增webpack設定檔案)
+
+                c. Create babel.config.json configuration file
+                *這部分有點改變 因為官方沒有考慮react JSX
+                c1. npm install @babel/preset-env @babel/preset-react --save-dev
+                c2. 根目錄新增babel.config.json
+                    內容的部分也要再新增  @babel/preset-react
+
+        ///////整個都處理好了，可以開始寫主要內容///////
+        index.js 新增主要內容
+        list.js 新增list模組
+    -->
+  </body>
+</html>
