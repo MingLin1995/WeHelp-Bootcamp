@@ -1,1 +1,2 @@
-#基礎、React、React JSX、Babel
+#基礎
+#React、React JSX、Babel
