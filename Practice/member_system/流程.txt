@@ -1,0 +1,59 @@
+#確認有沒有安裝套件
+    pip install Flask 
+    pip install pymongo[srv]
+
+
+
+#建立基本環境
+#初始化資料庫連線
+    import pymongo
+    """ 
+    連線網址
+    登入mongoDB→Databases→Connect→Connect to your application
+    """
+    client=pymongo.MongoClient("mongodb+srv://root:root123@mycluster.wevxghs.mongodb.net/?retryWrites=true&w=majority")
+    db=client.member_system #資料庫名稱
+    print("資料庫連線建立成功")
+#初始化Flask伺服器
+    from flask import *
+    app=Flask(
+        __name__,
+        static_folder="public",
+        static_url_path="/"
+    )
+    app.secret_key="任何字串都行，但要保密"
+    app.run(port=3000)
+
+
+
+#前端頁面規劃
+#處理路由 /、member、error
+    @app.route("/")
+    def index():
+        #render_template 用樣板引擎渲染畫面，非透過網址轉跳
+        return render_template("index.html") 
+
+    @app.route("/member")
+    def member():
+        return render_template("member.html")
+    #錯誤訊息要有彈性，不能寫死，因為可能帳密錯誤，或是輸入了空白訊息
+    #透過要求字串來顯示錯誤訊息 /error?msg=錯誤訊息
+    @app.route("/error") 
+    def error():
+        #若有透過"msg"輸入要求字串，則顯示"要求的字串"，否則顯示"預設要求字串"
+        message_var=request.args.get("msg","預設要求字串")
+        #http://127.0.0.1:3000/error?msg=帳號錯誤 顯示"帳號錯誤"
+        #http://127.0.0.1:3000/error 顯示"預設要求字串"
+
+        #要渲染到error.html的變數名稱為message
+        return render_template("error.html",message=message_var)
+#建立樣板檔案資料夾 templates 
+    新增 index、member、error HTML
+
+
+
+#建立會員註冊功能
+
+
+
+#建立會員登入、登出功能

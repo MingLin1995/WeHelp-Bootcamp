@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>會員系統</title>
+  </head>
+  <body>
+    <h2>會員系統首頁</h2>
+    <div>歡迎光臨我們的網站</div>
+
+    <!-- 註冊表單 -->
+    <h3>會員註冊</h3>
+    <!-- 註冊送出時導向到signup路由 -->
+    <form action="/signup" method="POST">
+      暱稱<input type="text" name="nickname" /><br />
+      信箱<input type="text" name="email" /><br />
+      密碼<input type="password" name="password" /><br />
+      <button>註冊</button>
+    </form>
+
+    <!-- 登入表單 -->
+    <h3>會員登入</h3>
+    <form action="/signin" method="POST">
+      信箱<input type="text" name="email" /><br />
+      密碼<input type="password" name="password" /><br />
+      <button>登入</button>
+    </form>
+  </body>
+</html>
